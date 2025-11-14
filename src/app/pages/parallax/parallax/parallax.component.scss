@@ -18,30 +18,30 @@ section {
   background-size: cover;
   background-position: center;
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0, 0, 0, 0.4);
     z-index: 1;
   }
-  
+
   > * {
     position: relative;
     z-index: 2;
   }
 }
 
+/* Imagens diferentes para cada parallax */
 .parallax-1 {
   background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470');
 }
-
 .parallax-2 {
   background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee');
+}
+.parallax-3 {
+  background-image: url('https://images.unsplash.com/photo-1491553895911-0055eca6402d');
 }
 
 /* Camada interna */
@@ -54,12 +54,12 @@ section {
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  
+
   h1, h2, h3, h4, h5, h6 {
     margin-bottom: 16px;
     color: white;
   }
-  
+
   p {
     font-size: 1.1em;
     line-height: 1.6;
@@ -74,17 +74,17 @@ section {
   color: #333;
   min-height: auto;
   padding: 100px 20px;
-  
+
   .theme-dark & {
     background: #121212;
     color: #e0e0e0;
   }
-  
+
   h2 {
     color: inherit;
     margin-bottom: 24px;
   }
-  
+
   p {
     max-width: 800px;
     margin: 0 auto 24px;

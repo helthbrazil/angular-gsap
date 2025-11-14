@@ -6,17 +6,24 @@
   left: 0;
   width: 100%;
   height: 60px;
-  background-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+
+  // Glass effect
+  background-color: rgba(255, 255, 255, 0.15); // leve transparência
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
   z-index: 1000;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 
-  .theme-dark & {
-    background-color: mat.get-color-from-palette(mat.$blue-grey-palette, 900);
+  &.theme-dark {
+    background-color: rgba(32, 33, 36, 0.5); // azul escuro transparente
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -30,43 +37,37 @@
   gap: 20px;
 }
 
-/* Ícone de toggle */
+// Ícone de toggle com efeito vidro
 .toggle-darkmode {
   font-size: 22px;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.2s ease;
-}
-
-.toggle-darkmode:hover {
-  transform: scale(1.2);
-}
-
-/* Ícone de tema */
-.toggle-darkmode {
-  font-size: 22px;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.2s ease;
-  background: rgba(255, 255, 255, 0.1);
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
   transition: all 0.3s ease;
 
   &:hover {
     transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
   }
 
   .theme-dark & {
     color: mat.get-color-from-palette(mat.$blue-grey-palette, 100);
-    
+    background: rgba(32, 33, 36, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
     &:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(32, 33, 36, 0.5);
     }
   }
 }

@@ -29,12 +29,12 @@ export class GalleryComponent implements OnInit, AfterViewInit, OnDestroy {
     const anim = gsap.to(items, {
       opacity: 1,
       y: 0,
-      duration: 0.5,
+      duration: 0.3,
       ease: 'power2.out',
       stagger: 0.08,
       scrollTrigger: {
         trigger: '.gallery',
-        start: 'top 95%',
+        start: 'top 80%',
         toggleActions: 'play none none none',
         once: true,
         immediateRender: false
