@@ -82,22 +82,102 @@ ul, ol {
 a {
   text-decoration: none;
   color: inherit;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: mat.get-color-from-palette($my-accent);
+  }
 }
 
 /* Imagens responsivas */
 img {
   max-width: 100%;
   display: block;
+  height: auto;
 }
 
 .content {
   margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  transition: background-color 0.3s ease;
 }
 
+/* Estilos para o mat-tab-group */
 mat-tab-group {
   position: sticky;
-  top: 60px; /* distância do topo da tela */
-  z-index: 1000; /* acima de outros elementos */
-  background-color: whitesmoke; /* vai respeitar tema */
+  top: 60px;
+  z-index: 1000;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+  .theme-dark & {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Estilização das abas */
+  .mat-tab-header {
+    background-color: inherit;
+  }
+
+  .mat-tab-label {
+    opacity: 1;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    .theme-dark & {
+      color: rgba(255, 255, 255, 0.87);
+    }
+
+    &:hover {
+      color: mat.get-color-from-palette($my-primary);
+    }
+
+    &-active {
+      color: mat.get-color-from-palette($my-primary);
+      opacity: 1;
+    }
+  }
+}
+
+/* Ajustes para o conteúdo das abas */
+.mat-tab-body-wrapper {
+  /* padding: 24px 0; */
+  background-color: inherit;
+}
+
+/* Melhorias de acessibilidade */
+:focus-visible {
+  outline: 2px solid mat.get-color-from-palette($my-accent);
+  outline-offset: 2px;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  
+  .theme-dark & {
+    background: #2d2d2d;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+  
+  .theme-dark & {
+    background: #555;
+  }
+  
+  &:hover {
+    background: mat.get-color-from-palette($my-primary);
+  }
 }
 

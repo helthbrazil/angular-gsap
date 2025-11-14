@@ -13,6 +13,7 @@ export class AppComponent implements AfterViewInit {
   theme: 'light' | 'dark' = 'light';
 
   toggleTheme() {
+    debugger
     this.theme = this.theme === 'light' ? 'dark' : 'light';
   }
 
