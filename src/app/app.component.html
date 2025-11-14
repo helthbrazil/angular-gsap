@@ -1,0 +1,27 @@
+<div [class.theme-light]="theme === 'light'" [class.theme-dark]="theme === 'dark'">
+  <app-toolbar></app-toolbar>
+
+  <div class="content">
+    <mat-tab-group animationDuration="500ms" mat-align-tabs="center" [selectedIndex]="selectedIndex"
+      (selectedIndexChange)="onTabChange($event)">
+
+      <mat-tab label="Basic"></mat-tab>
+      <mat-tab label="Gallery"></mat-tab>
+      <mat-tab label="Parallax"></mat-tab>
+      <mat-tab label="Transitions"></mat-tab>
+    </mat-tab-group>
+
+    <router-outlet></router-outlet>
+
+
+    <!--  <button mat-raised-button color="primary" (click)="toggleTheme()">
+      {{ theme === 'light' ? 'Dark' : 'Light' }}
+    </button> -->
+
+
+
+
+
+
+  </div>
+</div>

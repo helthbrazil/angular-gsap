@@ -1,0 +1,38 @@
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent implements AfterViewInit {
+  selectedIndex = 0;
+  theme: 'light' | 'dark' = 'light';
+
+  toggleTheme() {
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
+  }
+
+  constructor(private router: Router) {
+    // Atualiza a tab selecionada quando muda de rota via URL
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const index = this.tabsRoutes.indexOf(event.urlAfterRedirects);
+        if (index !== -1) this.selectedIndex = index;
+      }
+    });
+  }
+
+  onTabChange(index: number) {
+    this.router.navigate([this.tabsRoutes[index]]);
+  }
+
+  tabsRoutes = ['/basic', '/gallery', '/parallax', '/transitions'];
+
+  ngAfterViewInit(): void {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+}

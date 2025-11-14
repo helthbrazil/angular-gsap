@@ -1,0 +1,22 @@
+.spacer {
+  height: 100vh;
+}
+
+.animated-box {
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(135deg, #3f51b5, #673ab7);
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 22px;
+  border-radius: 12px;
+  margin: 0 auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(100px);
+  will-change: transform, opacity;
+}
