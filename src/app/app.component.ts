@@ -30,7 +30,7 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate([this.tabsRoutes[index]]);
   }
 
-  tabsRoutes = ['/basic', '/gallery', '/parallax', '/transitions', '/timeline'];
+  tabsRoutes = ['/basic', '/gallery', '/parallax', '/timeline'];
 
   ngAfterViewInit(): void {
     gsap.registerPlugin(ScrollTrigger);

@@ -1,14 +1,24 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { BaseAnimatedComponent } from 'src/app/components/base-animated.component';
 import { GsapAnimationService } from 'src/app/services/gsap-animations.service';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-time-line',
   templateUrl: './time-line.component.html',
   styleUrls: ['./time-line.component.scss']
 })
-export class TimeLineComponent extends BaseAnimatedComponent implements OnInit, AfterViewInit {
-  
+export class TimeLineComponent extends BaseAnimatedComponent implements OnInit, AfterViewInit, OnDestroy {
+  private resizeObserver: ResizeObserver | null = null;
+  private scrollTriggers: ScrollTrigger[] = [];
+  private hoverAnimations: gsap.core.Tween[] = [];
+  private pulseAnimation: gsap.core.Tween | null = null;
+  private headerAnimation: gsap.core.Tween | null = null;
+  private lineAnimation: gsap.core.Tween | null = null;
+
   timelineItems = [
     {
       year: '2020',
@@ -42,29 +52,76 @@ export class TimeLineComponent extends BaseAnimatedComponent implements OnInit, 
     }
   ];
 
-  constructor(override gsapService: GsapAnimationService) {
+  constructor(
+    override gsapService: GsapAnimationService,
+    private elementRef: ElementRef
+  ) {
     super(gsapService);
   }
 
   ngOnInit(): void {
-    // Inicialização se necessário
+    // Garante que o ScrollTrigger esteja registrado
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+    }
   }
 
   ngAfterViewInit(): void {
-    this.initializeAnimations();
+    // Espera um frame para garantir que o DOM esteja pronto
+    requestAnimationFrame(() => {
+      this.initializeAnimations();
+      this.setupResizeObserver();
+      // Força uma atualização do ScrollTrigger após a renderização
+      setTimeout(() => ScrollTrigger.refresh(true), 100);
+    });
+  }
+
+  private setupResizeObserver(): void {
+    if (typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver(() => {
+        ScrollTrigger.refresh();
+      });
+
+      const container = this.elementRef.nativeElement.querySelector('.timeline-container');
+      if (container) {
+        this.resizeObserver.observe(container);
+      }
+    }
+  }
+
+  private clearAnimations(): void {
+    // Limpa todos os ScrollTriggers
+    this.scrollTriggers.forEach(trigger => trigger.kill());
+    this.scrollTriggers = [];
+
+    // Limpa animações de hover
+    this.hoverAnimations.forEach(anim => anim.kill());
+    this.hoverAnimations = [];
+
+    // Limpa animações específicas
+    if (this.pulseAnimation) this.pulseAnimation.kill();
+    if (this.headerAnimation) this.headerAnimation.kill();
+    if (this.lineAnimation) this.lineAnimation.kill();
   }
 
   initializeAnimations(): void {
-    // Animação inicial do título
-    this.gsapService.from('.timeline-header', {
+    // Limpa animações existentes
+    this.clearAnimations();
+
+    // Animação do cabeçalho
+    this.headerAnimation = gsap.from('.timeline-header', {
       duration: 1,
       y: -50,
       opacity: 0,
-      ease: 'power3.out'
+      ease: 'power3.out',
+      onComplete: () => {
+        // Força uma atualização do ScrollTrigger após a animação do cabeçalho
+        ScrollTrigger.refresh();
+      }
     });
 
     // Animação da linha central
-    this.gsapService.from('.timeline-line', {
+    this.lineAnimation = gsap.from('.timeline-line', {
       duration: 1.5,
       scaleY: 0,
       transformOrigin: 'top',
@@ -72,62 +129,11 @@ export class TimeLineComponent extends BaseAnimatedComponent implements OnInit, 
       delay: 0.3
     });
 
-    // Animação dos itens da timeline com ScrollTrigger
-    this.timelineItems.forEach((item, index) => {
-      const isLeft = index % 2 === 0;
-      
-      // Animação do card
-      this.gsapService.from(`.timeline-item-${index}`, {
-        scrollTrigger: {
-          trigger: `.timeline-item-${index}`,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        },
-        duration: 0.8,
-        x: isLeft ? -100 : 100,
-        opacity: 0,
-        ease: 'power3.out'
-      });
-
-      // Animação do ponto
-      this.gsapService.from(`.timeline-dot-${index}`, {
-        scrollTrigger: {
-          trigger: `.timeline-item-${index}`,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        },
-        duration: 0.6,
-        scale: 0,
-        ease: 'back.out(1.7)',
-        delay: 0.3
-      });
-
-      // Animação de hover no card
-      const card = document.querySelector(`.timeline-item-${index} .timeline-card`);
-      if (card) {
-        card.addEventListener('mouseenter', () => {
-          this.gsapService.to(card, {
-            duration: 0.3,
-            y: -10,
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
-            ease: 'power2.out'
-          });
-        });
-
-        card.addEventListener('mouseleave', () => {
-          this.gsapService.to(card, {
-            duration: 0.3,
-            y: 0,
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-            ease: 'power2.out'
-          });
-        });
-      }
-    });
+    // Configura os itens da timeline
+    this.setupTimelineItems();
 
     // Animação de pulso contínuo nos dots
-    this.gsapService.to('.timeline-dot', {
+    this.pulseAnimation = gsap.to('.timeline-dot', {
       duration: 2,
       scale: 1.1,
       opacity: 0.8,
@@ -136,5 +142,79 @@ export class TimeLineComponent extends BaseAnimatedComponent implements OnInit, 
       ease: 'power1.inOut',
       stagger: 0.2
     });
+  }
+
+  private setupTimelineItems(): void {
+    this.timelineItems.forEach((item, index) => {
+      const isLeft = index % 2 === 0;
+      const itemSelector = `.timeline-item-${index}`;
+      const dotSelector = `.timeline-dot-${index}`;
+      const cardSelector = `${itemSelector} .timeline-card`;
+
+      // Configura a animação inicial do item
+      gsap.set([itemSelector, dotSelector], { opacity: 0 });
+      gsap.set(itemSelector, { x: isLeft ? -50 : 50 });
+
+      // Cria o ScrollTrigger para o item
+      const itemTrigger = ScrollTrigger.create({
+        trigger: itemSelector,
+        start: 'top 80%',
+        onEnter: () => this.animateTimelineItem(itemSelector, dotSelector, isLeft),
+        onEnterBack: () => this.animateTimelineItem(itemSelector, dotSelector, isLeft)
+      });
+
+      this.scrollTriggers.push(itemTrigger);
+
+      // Configura o efeito hover no card
+      const card = this.elementRef.nativeElement.querySelector(cardSelector);
+      if (card) {
+        const hoverTween = gsap.to(card, {
+          duration: 0.3,
+          y: -10,
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+          ease: 'power2.out',
+          paused: true
+        });
+
+        card.addEventListener('mouseenter', () => hoverTween.play());
+        card.addEventListener('mouseleave', () => hoverTween.reverse());
+        this.hoverAnimations.push(hoverTween);
+      }
+    });
+  }
+
+  private animateTimelineItem(itemSelector: string, dotSelector: string, isLeft: boolean): void {
+    // Animação do card
+    gsap.to(itemSelector, {
+      x: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+
+    // Animação do ponto
+    gsap.to(dotSelector, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.6,
+      ease: 'back.out(1.7)',
+      delay: 0.3
+    });
+  }
+
+  override ngOnDestroy(): void {
+    // Limpa o ResizeObserver
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+
+    // Limpa todas as animações
+    this.clearAnimations();
+
+    // Força uma atualização final
+    ScrollTrigger.refresh(true);
+    
+    super.ngOnDestroy();
   }
 }

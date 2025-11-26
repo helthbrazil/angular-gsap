@@ -29,8 +29,6 @@ export class PreviewComponent
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
-    document.body.classList.add('no-scroll');
-
     // Observa quando o IMG nasce no DOM
     this.observer = new MutationObserver(() => {
       const img = this.el.nativeElement.querySelector('.transparent img');

@@ -1,43 +1,81 @@
 @use "@angular/material" as mat;
 
+:host {
+  --toolbar-bg: rgba(255, 255, 255, 0.15);
+  --toolbar-border: rgba(255, 255, 255, 0.25);
+  --toolbar-text: #ffffff;
+  --toolbar-hover: rgba(255, 255, 255, 0.3);
+  --toolbar-toggle-bg: rgba(255, 255, 255, 0.2);
+  --toolbar-toggle-border: rgba(255, 255, 255, 0.3);
+  --toolbar-toggle-hover: rgba(255, 255, 255, 0.3);
+}
+
+.theme-dark {
+  --toolbar-bg: rgba(32, 33, 36, 0.5);
+  --toolbar-border: rgba(255, 255, 255, 0.1);
+  --toolbar-text: #ffffff;
+  --toolbar-hover: rgba(255, 255, 255, 0.1);
+  --toolbar-toggle-bg: rgba(32, 33, 36, 0.4);
+  --toolbar-toggle-border: rgba(255, 255, 255, 0.1);
+  --toolbar-toggle-hover: rgba(32, 33, 36, 0.5);
+}
+
 .toolbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 60px;
-
-  // Glass effect
-  background-color: rgba(255, 255, 255, 0.15); // leve transparência
+  background-color: var(--toolbar-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-
-  color: white;
+  border-bottom: 1px solid var(--toolbar-border);
+  color: var(--toolbar-text);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
   z-index: 1000;
   transition: all 0.3s ease;
-
-  &.theme-dark {
-    background-color: rgba(32, 33, 36, 0.5); // azul escuro transparente
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
 }
 
 .logo {
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 
 .menu {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
-// Ícone de toggle com efeito vidro
+.menu-item {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--color-hover);
+    color: var(--color-primary);
+  }
+  
+  &.active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+}
+
 .toggle-darkmode {
   font-size: 22px;
   cursor: pointer;
@@ -48,26 +86,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--toolbar-toggle-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
+  border: 1px solid var(--toolbar-toggle-border);
+  color: var(--color-text);
   transition: all 0.3s ease;
 
   &:hover {
     transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--toolbar-toggle-hover);
+    color: var(--color-primary);
   }
 
   .theme-dark & {
-    color: mat.get-color-from-palette(mat.$blue-grey-palette, 100);
-    background: rgba(32, 33, 36, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text);
+    background: var(--toolbar-toggle-bg);
+    border: 1px solid var(--toolbar-toggle-border);
 
     &:hover {
-      background: rgba(32, 33, 36, 0.5);
+      background: var(--toolbar-toggle-hover);
     }
   }
 }
