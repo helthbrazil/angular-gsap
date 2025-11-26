@@ -1,23 +1,40 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BaseAnimatedComponent } from 'src/app/components/base-animated.component';
+import { GsapAnimationService } from 'src/app/services/gsap-animations.service';
 
+export interface Image {
+  url: string | undefined;
+}
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GalleryComponent extends BaseAnimatedComponent implements OnInit, AfterViewInit, OnDestroy {
   private scrollTriggerInstance: ScrollTrigger | null = null;
   sizeOfGallery = 150;
   galleryItems = Array.from({ length: this.sizeOfGallery }, (_, i) => i + 1);
+  imagePreview: Image = {
+    url: ''
+  };
 
   private scrollTriggers: ScrollTrigger[] = [];
 
-  constructor(private el: ElementRef) { }
+  constructor(
+    private el: ElementRef,
+    protected override gsapService: GsapAnimationService
+  ) {
+    super(gsapService);
+  }
 
   ngOnInit(): void {
     gsap.registerPlugin(ScrollTrigger);
+  }
+
+  initializeAnimations(): void {
+    this.animateFadeIn();
   }
 
   private animateFadeIn(): void {
@@ -44,6 +61,10 @@ export class GalleryComponent implements OnInit, AfterViewInit, OnDestroy {
     if (anim.scrollTrigger) this.scrollTriggers.push(anim.scrollTrigger);
   }
 
+  previewImage(url: string){
+    this.imagePreview.url = url;
+  }
+
   ngAfterViewInit(): void {
     this.animateFadeIn();
 
@@ -53,7 +74,8 @@ export class GalleryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
     // Matar todas as instâncias de ScrollTrigger
     this.scrollTriggers.forEach(trigger => {
       if (trigger) {

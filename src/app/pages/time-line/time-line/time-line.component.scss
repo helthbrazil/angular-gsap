@@ -1,0 +1,255 @@
+// Variáveis
+$primary-color: #6366f1;
+$secondary-color: #8b5cf6;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$bg-light: #f9fafb;
+$white: #ffffff;
+$shadow: rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin card-shadow {
+  box-shadow: 0 10px 30px $shadow;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Container Principal
+.timeline-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, $bg-light 0%, $white 100%);
+  min-height: 100vh;
+}
+
+// Header
+.timeline-header {
+  text-align: center;
+  margin-bottom: 80px;
+
+  .timeline-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+
+  .timeline-subtitle {
+    font-size: 1.25rem;
+    color: $text-light;
+    font-weight: 400;
+  }
+}
+
+// Timeline
+.timeline {
+  position: relative;
+  padding: 40px 0;
+
+  // Linha central
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, $primary-color, $secondary-color);
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba($primary-color, 0.3);
+  }
+}
+
+// Item da Timeline
+.timeline-item {
+  position: relative;
+  width: 100%;
+  margin-bottom: 80px;
+  display: flex;
+  align-items: center;
+
+  &.left {
+    justify-content: flex-start;
+
+    .timeline-content {
+      padding-right: 60px;
+    }
+
+    .timeline-dot {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.right {
+    justify-content: flex-end;
+
+    .timeline-content {
+      padding-left: 60px;
+    }
+
+    .timeline-dot {
+      left: auto;
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
+}
+
+// Conteúdo
+.timeline-content {
+  width: 50%;
+  position: relative;
+}
+
+// Card
+.timeline-card {
+  background: $white;
+  padding: 32px;
+  border-radius: 20px;
+  @include card-shadow;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba($primary-color, 0.1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color, $secondary-color);
+  }
+
+  &:hover {
+    border-color: rgba($primary-color, 0.3);
+  }
+
+  .timeline-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .timeline-year {
+    display: inline-block;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    color: $white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+  }
+
+  .timeline-card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .timeline-card-description {
+    font-size: 1rem;
+    color: $text-light;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// Dot (ponto na linha)
+.timeline-dot {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: $white;
+  border: 4px solid $primary-color;
+  border-radius: 50%;
+  @include flex-center;
+  z-index: 10;
+  box-shadow: 0 0 0 8px rgba($primary-color, 0.1);
+
+  .timeline-dot-inner {
+    width: 8px;
+    height: 8px;
+    background: $primary-color;
+    border-radius: 50%;
+  }
+}
+
+// Animações
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Responsivo
+@media (max-width: 768px) {
+  .timeline-header {
+    .timeline-title {
+      font-size: 2.5rem;
+    }
+
+    .timeline-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .timeline-line {
+    left: 20px !important;
+  }
+
+  .timeline-item {
+    &.left,
+    &.right {
+      justify-content: flex-start;
+      padding-left: 60px;
+
+      .timeline-content {
+        width: 100%;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      .timeline-dot {
+        left: 20px !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+      }
+    }
+  }
+
+  .timeline-card {
+    padding: 24px;
+
+    .timeline-icon {
+      font-size: 2.5rem;
+    }
+
+    .timeline-card-title {
+      font-size: 1.5rem;
+    }
+
+    .timeline-card-description {
+      font-size: 0.95rem;
+    }
+  }
+}

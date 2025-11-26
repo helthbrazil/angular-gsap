@@ -1,0 +1,30 @@
+<!-- time-line.component.html -->
+<div class="timeline-container">
+  <div class="timeline-header">
+    <h1 class="timeline-title">Nossa Jornada</h1>
+    <p class="timeline-subtitle">Momentos que definiram nossa história</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-line"></div>
+
+    <div *ngFor="let item of timelineItems; let i = index" 
+         class="timeline-item timeline-item-{{i}}"
+         [class.left]="i % 2 === 0"
+         [class.right]="i % 2 !== 0">
+      
+      <div class="timeline-content">
+        <div class="timeline-card">
+          <div class="timeline-icon">{{ item.icon }}</div>
+          <div class="timeline-year">{{ item.year }}</div>
+          <h3 class="timeline-card-title">{{ item.title }}</h3>
+          <p class="timeline-card-description">{{ item.description }}</p>
+        </div>
+      </div>
+
+      <div class="timeline-dot timeline-dot-{{i}}">
+        <div class="timeline-dot-inner"></div>
+      </div>
+    </div>
+  </div>
+</div>

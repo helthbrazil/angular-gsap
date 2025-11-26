@@ -1,18 +1,28 @@
 import { AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnDestroy, OnInit } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BaseAnimatedComponent } from 'src/app/components/base-animated.component';
+import { GsapAnimationService } from 'src/app/services/gsap-animations.service';
 
 @Component({
   selector: 'app-basic',
   templateUrl: './basic.component.html',
   styleUrls: ['./basic.component.scss']
 })
-export class BasicComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BasicComponent extends BaseAnimatedComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('animatedElements') animatedElements!: QueryList<ElementRef>;
   private scrollTriggers: ScrollTrigger[] = [];
 
+  constructor(protected override gsapService: GsapAnimationService) {
+    super(gsapService);
+  }
+
   ngOnInit(): void {
     gsap.registerPlugin(ScrollTrigger);
+  }
+
+  initializeAnimations(): void {
+    this.initAnimations();
   }
 
   ngAfterViewInit(): void {
@@ -79,8 +89,9 @@ export class BasicComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.scrollTriggers.forEach(st => st.kill(true));
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.scrollTriggers.forEach(trigger => trigger.kill());
     this.scrollTriggers = [];
 
     this.animatedElements.forEach(elRef => {
@@ -88,8 +99,6 @@ export class BasicComponent implements OnInit, AfterViewInit, OnDestroy {
       gsap.killTweensOf(el);
       gsap.set(el, { clearProps: 'all', opacity: 1, x: 0 });
     });
-
-    ScrollTrigger.getAll().forEach(st => st.kill(true));
     ScrollTrigger.refresh();
   }
 }

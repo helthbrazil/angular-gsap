@@ -1,35 +1,47 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, HostListener } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BaseAnimatedComponent } from 'src/app/components/base-animated.component';
+import { GsapAnimationService } from 'src/app/services/gsap-animations.service';
 
 @Component({
   selector: 'app-transitions',
   templateUrl: './transitions.component.html',
   styleUrls: ['./transitions.component.scss']
 })
-export class TransitionsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TransitionsComponent extends BaseAnimatedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private scrollTriggers: ScrollTrigger[] = [];
 
   mouseX = 0;
   mouseY = 0;
 
-  constructor(private el: ElementRef) { }
+  constructor(
+    private el: ElementRef,
+    protected override gsapService: GsapAnimationService
+  ) {
+    super(gsapService);
+  }
 
   ngOnInit(): void {
     gsap.registerPlugin(ScrollTrigger);
   }
 
-  ngAfterViewInit(): void {
+  initializeAnimations(): void {
     this.init3DCard();
     this.initScrollAnimations();
     this.initMaskReveal();
+  }
 
+  ngAfterViewInit(): void {
+    this.initializeAnimations();
     // Refresh do ScrollTrigger para corrigir posições
     setTimeout(() => ScrollTrigger.refresh(), 50);
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    
     // Kill todos os ScrollTriggers
     this.scrollTriggers.forEach(st => st.kill(true));
     this.scrollTriggers = [];

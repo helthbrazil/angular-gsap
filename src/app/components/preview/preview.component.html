@@ -1,0 +1,5 @@
+<ng-container *ngIf="image.url">
+    <div class="transparent" (click)="closePreview()">
+        <img [src]="image.url" alt="">
+    </div>
+</ng-container>

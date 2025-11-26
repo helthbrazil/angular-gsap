@@ -6,6 +6,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { PreviewComponent } from 'src/app/components/preview/preview.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     CommonModule,
     GalleryRoutingModule,
     MatInputModule,
+    PreviewComponent,
     MatSelectModule,
     MatFormFieldModule
   ]

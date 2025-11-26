@@ -22,11 +22,15 @@ const routes: Routes = [
   {
     path: 'gallery',
     loadChildren: () => import('./pages/gallery/gallery.module').then(m => m.GalleryModule)
+  },
+  {
+    path: 'timeline',
+    loadChildren: () => import('./pages/time-line/time-line.module').then(m => m.TimeLineModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'})],
+  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top', useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
