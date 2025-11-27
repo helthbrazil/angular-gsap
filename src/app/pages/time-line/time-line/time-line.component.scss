@@ -37,16 +37,20 @@ $shadow: var(--color-shadow);
 .timeline-header {
   text-align: center;
   margin-bottom: 80px;
+  overflow: visible;
+  padding: 0 20px;
 
   .timeline-title {
     font-size: 3.5rem;
     font-weight: 800;
     background: linear-gradient(135deg, $primary-color, $secondary-color);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
     margin-bottom: 16px;
     letter-spacing: -1px;
+    line-height: 1.2;
+    padding: 0.2em 0;
   }
 
   .timeline-subtitle {
@@ -201,9 +205,12 @@ $shadow: var(--color-shadow);
 
 // Animações
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -226,6 +233,7 @@ $shadow: var(--color-shadow);
   }
 
   .timeline-item {
+
     &.left,
     &.right {
       justify-content: flex-start;

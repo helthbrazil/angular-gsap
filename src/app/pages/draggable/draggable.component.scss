@@ -1,0 +1,170 @@
+.draggable-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #2196F3, #9C27B0);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.demo-section {
+    margin-bottom: 4rem;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+    h2 {
+        margin-top: 0;
+        color: #444;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 1.5rem;
+    }
+}
+
+// Physics Demo
+.physics-container {
+    height: 400px;
+    background: #f0f2f5;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e1e4e8;
+}
+
+.physics-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &.box-1 {
+        background: #FF5252;
+        top: 50px;
+        left: 50px;
+    }
+
+    &.box-2 {
+        background: #448AFF;
+        top: 50px;
+        left: 200px;
+    }
+
+    &.box-3 {
+        background: #69F0AE;
+        color: #333;
+        top: 200px;
+        left: 100px;
+        border-radius: 50%;
+    }
+}
+
+// Carousel Demo
+.carousel-wrapper {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: #1a1a1a;
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-content {
+    display: flex;
+    height: 200px;
+    padding: 0 20px;
+}
+
+.slide {
+    width: 280px;
+    height: 200px;
+    margin-right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    user-select: none;
+
+    &:nth-child(2n) {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+        color: #333;
+    }
+
+    &:nth-child(3n) {
+        background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+        color: #333;
+    }
+}
+
+// Knob Demo
+.knob-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.knob {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #eee;
+    border: 4px solid #ddd;
+    position: relative;
+    cursor: grab;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.knob-indicator {
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.knob-value {
+    font-size: 2rem;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    color: #333;
+}

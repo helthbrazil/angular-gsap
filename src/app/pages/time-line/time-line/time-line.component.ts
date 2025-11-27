@@ -49,6 +49,18 @@ export class TimeLineComponent extends BaseAnimatedComponent implements OnInit, 
       title: 'Novo Marco de Crescimento',
       description: 'Alcançamos 1 milhão de usuários ativos e lançamos IA avançada.',
       icon: '⭐'
+    }, 
+     {
+      year: '2025',
+      title: 'Novo Marco de Crescimento',
+      description: 'Alcançamos 1 milhão de usuários ativos e lançamos IA avançada.',
+      icon: '⭐'
+    },
+     {
+      year: '2026',
+      title: 'Novo Marco de Crescimento',
+      description: 'Alcançamos 1 milhão de usuários ativos e lançamos IA avançada.',
+      icon: '⭐'
     }
   ];
 

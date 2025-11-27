@@ -1,0 +1,94 @@
+.motion-path-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #FF5722, #FF9800);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.demo-section {
+    margin-bottom: 4rem;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+    h2 {
+        margin-top: 0;
+        color: #444;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.svg-container {
+    width: 100%;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    overflow: hidden;
+
+    svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+.orbit-container {
+    background: #1a1a1a;
+
+    svg {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    circle[fill="#FFC107"] {
+        filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.6));
+    }
+}
+
+.race-container {
+    background: #2a2a2a;
+
+    svg {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .car-1,
+    .car-2,
+    .car-3 {
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    }
+}
+
+.spiral-container {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+
+    svg {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .spiral-particle {
+        filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    circle[fill="#FFD700"] {
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+    }
+}

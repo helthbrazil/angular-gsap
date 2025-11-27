@@ -22,6 +22,12 @@ export class AppComponent implements AfterViewInit {
       if (event instanceof NavigationEnd) {
         const index = this.tabsRoutes.indexOf(event.urlAfterRedirects);
         if (index !== -1) this.selectedIndex = index;
+
+        // Rola para o topo da página quando a rota muda
+        window.scrollTo(0, 0);
+        // Força o scroll para o topo em navegadores que não respeitam window.scrollTo
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
     });
   }
@@ -30,7 +36,7 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate([this.tabsRoutes[index]]);
   }
 
-  tabsRoutes = ['/basic', '/gallery', '/parallax', '/timeline'];
+  tabsRoutes = ['/basic', '/gallery', '/parallax', '/timeline', '/draggable', '/motion-path', '/products'];
 
   ngAfterViewInit(): void {
     gsap.registerPlugin(ScrollTrigger);

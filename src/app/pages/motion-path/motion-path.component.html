@@ -1,0 +1,90 @@
+<div class="motion-path-page">
+    <h1>GSAP MotionPath Plugin</h1>
+
+    <section class="demo-section">
+        <h2>1. Paper Plane Flight</h2>
+        <p>The plane follows the SVG path, auto-rotating to match the curve.</p>
+        <div class="svg-container">
+            <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+                <path id="path" d="M10,200 C150,50 300,350 450,200 S700,50 790,200" fill="none" stroke="#e1e4e8"
+                    stroke-width="5" stroke-dasharray="10 10" />
+
+                <g class="paper-plane">
+                    <path d="M2,20 L40,10 L2,0 L10,10 Z" fill="#2196F3" />
+                </g>
+            </svg>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2>2. Planetary Orbit</h2>
+        <p>A planet orbiting around a center point.</p>
+        <div class="svg-container orbit-container">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                <circle id="orbit-path" cx="200" cy="200" r="150" fill="none" stroke="#333" stroke-width="2"
+                    stroke-dasharray="5 5" />
+                <circle cx="200" cy="200" r="30" fill="#FFC107" /> <!-- Sun -->
+
+                <circle class="planet" cx="0" cy="0" r="15" fill="#4CAF50" /> <!-- Planet -->
+            </svg>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2>3. Figure-8 Pattern</h2>
+        <p>A dot following an infinity/figure-8 path.</p>
+        <div class="svg-container">
+            <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
+                <path id="figure-eight-path"
+                    d="M150,200 C150,100 250,100 250,200 C250,300 150,300 150,200 M250,200 C250,100 350,100 350,200 C350,300 250,300 250,200"
+                    fill="none" stroke="#9C27B0" stroke-width="3" stroke-dasharray="8 4" />
+
+                <circle class="figure-eight-dot" cx="0" cy="0" r="12" fill="#E91E63">
+                    <animate attributeName="r" values="12;16;12" dur="1s" repeatCount="indefinite" />
+                </circle>
+            </svg>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2>4. Racing Track</h2>
+        <p>Three cars racing on a curved track at different speeds.</p>
+        <div class="svg-container race-container">
+            <svg viewBox="0 0 700 400" preserveAspectRatio="xMidYMid meet">
+                <path id="race-track" d="M100,200 Q200,100 350,100 T600,200 Q500,300 350,300 T100,200" fill="none"
+                    stroke="#555" stroke-width="40" opacity="0.3" />
+                <path d="M100,200 Q200,100 350,100 T600,200 Q500,300 350,300 T100,200" fill="none" stroke="#FFD700"
+                    stroke-width="3" stroke-dasharray="15 10" />
+
+                <!-- Car 1 - Red -->
+                <rect class="car-1" x="-15" y="-8" width="30" height="16" rx="4" fill="#F44336" />
+
+                <!-- Car 2 - Blue -->
+                <rect class="car-2" x="-15" y="-8" width="30" height="16" rx="4" fill="#2196F3" />
+
+                <!-- Car 3 - Green -->
+                <rect class="car-3" x="-15" y="-8" width="30" height="16" rx="4" fill="#4CAF50" />
+            </svg>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2>5. Spiral Galaxy</h2>
+        <p>A particle spiraling outward from the center.</p>
+        <div class="svg-container spiral-container">
+            <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">
+                <path id="spiral-path"
+                    d="M250,250 C250,230 270,230 270,250 C270,280 220,280 220,250 C220,200 300,200 300,250 C300,330 170,330 170,250 C170,150 350,150 350,250 C350,380 120,380 120,250"
+                    fill="none" stroke="#00BCD4" stroke-width="2" opacity="0.5" />
+
+                <circle class="spiral-particle" cx="0" cy="0" r="8" fill="#00E5FF">
+                    <animate attributeName="fill" values="#00E5FF;#FF00FF;#00E5FF" dur="5s" repeatCount="indefinite" />
+                </circle>
+
+                <!-- Center star -->
+                <circle cx="250" cy="250" r="20" fill="#FFF" opacity="0.8" />
+                <circle cx="250" cy="250" r="15" fill="#FFD700" />
+            </svg>
+        </div>
+    </section>
+</div>

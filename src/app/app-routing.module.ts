@@ -26,11 +26,23 @@ const routes: Routes = [
   {
     path: 'timeline',
     loadChildren: () => import('./pages/time-line/time-line.module').then(m => m.TimeLineModule)
+  },
+  {
+    path: 'draggable',
+    loadChildren: () => import('./pages/draggable/draggable.module').then(m => m.DraggableModule)
+  },
+  {
+    path: 'motion-path',
+    loadChildren: () => import('./pages/motion-path/motion-path.module').then(m => m.MotionPathModule)
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top', useHash: true})],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top', useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
