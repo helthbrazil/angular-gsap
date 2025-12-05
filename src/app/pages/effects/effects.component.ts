@@ -201,13 +201,11 @@ export class EffectsComponent extends BaseAnimatedComponent implements OnInit, A
         if (this.shaderBgRef) {
             gsap.set(this.shaderBgRef.nativeElement, {
                 filter: 'blur(20px)',
-                scale: 1.1,
                 autoAlpha: 0.7
             });
 
             gsap.to(this.shaderBgRef.nativeElement, {
                 filter: 'blur(0px)',
-                scale: 1,
                 autoAlpha: 1,
                 duration: 1.5,
                 ease: 'power3.out',

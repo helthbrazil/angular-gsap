@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, HostListener } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -15,8 +15,9 @@ interface GalleryItem {
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit, AfterViewInit {
+export class GalleryComponent implements OnInit, AfterViewInit, OnDestroy {
   modalImage: string | null = null;
+  private scrollTriggerInstances: ScrollTrigger[] = [];
 
   galleryData: GalleryItem[] = [
     {
@@ -91,14 +92,21 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.animateGalleryCards();
+    // Use setTimeout para garantir que o DOM está pronto
+    setTimeout(() => {
+      this.animateGalleryCards();
+    }, 100);
   }
 
   private animateGalleryCards(): void {
     const cards = this.el.nativeElement.querySelectorAll('.gallery-card');
 
     if (cards.length) {
-      gsap.from(cards, {
+      // Primeiro, garantir que os cards estão visíveis
+      gsap.set(cards, { opacity: 1, y: 0 });
+
+      // Então animar
+      const animation = gsap.from(cards, {
         opacity: 0,
         y: 60,
         duration: 0.8,
@@ -106,9 +114,22 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         ease: 'power3.out',
         scrollTrigger: {
           trigger: '.gallery-grid',
-          start: 'top 80%'
+          start: 'top 80%',
+          onEnter: () => {
+            // Força a animação quando entra na viewport
+          }
         }
       });
+
+      // Armazenar o ScrollTrigger para cleanup
+      if (animation.scrollTrigger) {
+        this.scrollTriggerInstances.push(animation.scrollTrigger);
+      }
+
+      // Refresh ScrollTrigger após pequeno delay
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 200);
     }
   }
 
@@ -123,5 +144,25 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   @HostListener('document:keydown.escape')
   onEscape(): void {
     this.closeModal();
+  }
+
+  ngOnDestroy(): void {
+    // Limpar todos os ScrollTriggers
+    this.scrollTriggerInstances.forEach(trigger => {
+      if (trigger) {
+        trigger.kill();
+      }
+    });
+    this.scrollTriggerInstances = [];
+
+    // Resetar os cards ao estado original
+    const cards = this.el.nativeElement.querySelectorAll('.gallery-card');
+    if (cards.length) {
+      gsap.killTweensOf(cards);
+      gsap.set(cards, { clearProps: 'all' });
+    }
+
+    // Refresh geral
+    ScrollTrigger.refresh();
   }
 }

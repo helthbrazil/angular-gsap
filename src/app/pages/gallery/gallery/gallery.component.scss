@@ -6,7 +6,7 @@
 // Gallery Section
 .gallery-section {
   position: relative;
-  z-index: 1;
+  z-index: 100;
   padding: 5rem 0;
   background: #111827;
 }
@@ -49,6 +49,7 @@
   border-radius: 0.5rem;
   cursor: pointer;
   aspect-ratio: 1;
+  opacity: 1;
   
   &.sm\:col-span-2 {
     @media (min-width: 640px) {
