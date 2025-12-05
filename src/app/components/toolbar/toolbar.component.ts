@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,19 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  @Input() theme: 'light' | 'dark' = 'light';
-  @Output() toggleTheme = new EventEmitter<void>();
-  
-
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  toggleThemeEvent() {
-    this.toggleTheme.emit();
-  }
-
-
-
 }

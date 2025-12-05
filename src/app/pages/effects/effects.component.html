@@ -1,0 +1,61 @@
+<div class="effects-page">
+    <!-- Tab Navigation -->
+    <div class="tab-navigation">
+        <button class="tab-button" [class.active]="activeTab === 'neural'" (click)="switchTab('neural')">
+            Neural Network Hero
+        </button>
+        <button class="tab-button" [class.active]="activeTab === 'scroll'" (click)="switchTab('scroll')">
+            Scroll Expand Hero
+        </button>
+    </div>
+
+    <!-- Neural Network Effect -->
+    <section *ngIf="activeTab === 'neural'" class="effects-container">
+        <!-- Shader Background Canvas -->
+        <div class="shader-background" #shaderBackground>
+            <canvas #shaderCanvas></canvas>
+            <div class="gradient-overlay"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <!-- Badge -->
+            <div class="badge" #badge>
+                <span class="badge-label">{{ badgeLabel }}</span>
+                <span class="badge-separator"></span>
+                <span class="badge-text">{{ badgeText }}</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="hero-title" #heroTitle>
+                {{ title }}
+            </h1>
+
+            <!-- Description -->
+            <p class="hero-description" #heroDescription>
+                {{ description }}
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="cta-buttons" #ctaButtonsContainer>
+                <a *ngFor="let button of ctaButtons" [href]="button.href" [class.primary]="button.primary"
+                    class="cta-button">
+                    {{ button.text }}
+                </a>
+            </div>
+
+            <!-- Micro Details -->
+            <ul class="micro-details" #microDetailsContainer>
+                <li *ngFor="let detail of microDetails; let i = index" [attr.data-index]="i" class="micro-item">
+                    <span class="micro-dot"></span> {{ detail }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- Bottom Gradient -->
+        <div class="bottom-gradient"></div>
+    </section>
+
+    <!-- Scroll Expand Effect -->
+    <app-scroll-expand *ngIf="activeTab === 'scroll'"></app-scroll-expand>
+</div>

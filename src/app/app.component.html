@@ -1,5 +1,5 @@
-<div [class.theme-light]="theme === 'light'" [class.theme-dark]="theme === 'dark'">
-  <app-toolbar [theme]="theme" (toggleTheme)="toggleTheme()"></app-toolbar>
+<div class="theme-dark">
+  <app-toolbar></app-toolbar>
 
   <div class="content">
     <mat-tab-group animationDuration="500ms" mat-align-tabs="center" [selectedIndex]="selectedIndex"
@@ -12,6 +12,7 @@
       <mat-tab label="Draggable"></mat-tab>
       <mat-tab label="MotionPath"></mat-tab>
       <mat-tab label="Products"></mat-tab>
+      <mat-tab label="Effects"></mat-tab>
     </mat-tab-group>
 
     <router-outlet></router-outlet>

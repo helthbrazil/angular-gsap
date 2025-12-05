@@ -1,0 +1,59 @@
+<div class="scroll-expand-wrapper">
+    <section class="scroll-expand-section">
+        <div class="content-wrapper">
+            <!-- Background Image -->
+            <div class="bg-image" #bgImage>
+                <img [src]="bgImageSrc" alt="Background" class="bg-img">
+                <div class="bg-overlay"></div>
+            </div>
+
+            <div class="container">
+                <div class="hero-container">
+                    <!-- Media Container -->
+                    <div class="media-container" #mediaContainer>
+                        <video [src]="mediaSrc" [poster]="posterSrc" autoplay muted loop playsinline preload="auto"
+                            class="media-video"></video>
+                        <div class="media-overlay"></div>
+
+                        <!-- Info Text -->
+                        <div class="info-text">
+                            <p class="date-text" [style.transform]="'translateX(-' + (scrollProgress * 150) + 'vw)'">
+                                {{ date }}
+                            </p>
+                            <p class="scroll-text" [style.transform]="'translateX(' + (scrollProgress * 150) + 'vw)'">
+                                {{ scrollToExpand }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="title-container">
+                        <h2 class="title-first" #titleFirst>
+                            {{ firstWord }}
+                        </h2>
+                        <h2 class="title-rest" #titleRest>
+                            {{ restOfTitle }}
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <section class="content-section" #contentSection>
+                    <div class="content-box">
+                        <h2 class="content-title">About This Component</h2>
+                        <p class="content-text">
+                            This is a demonstration of the Scroll Expand component with a video. As you scroll,
+                            the video expands to fill more of the screen, creating an immersive experience.
+                            This component is perfect for showcasing video content in a modern, interactive way.
+                        </p>
+                        <p class="content-text">
+                            The Scroll Expand component provides a unique way to engage users with your content
+                            through interactive scrolling. This Angular version uses GSAP for smooth animations
+                            and supports both mouse wheel and touch interactions.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</div>

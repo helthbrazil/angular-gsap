@@ -10,11 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 })
 export class AppComponent implements AfterViewInit {
   selectedIndex = 0;
-  theme: 'light' | 'dark' = 'light';
-
-  toggleTheme() {
-    this.theme = this.theme === 'light' ? 'dark' : 'light';
-  }
+  theme: 'dark' = 'dark'; // Fixed to dark theme
 
   constructor(private router: Router) {
     // Atualiza a tab selecionada quando muda de rota via URL
@@ -36,7 +32,7 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate([this.tabsRoutes[index]]);
   }
 
-  tabsRoutes = ['/basic', '/gallery', '/parallax', '/timeline', '/draggable', '/motion-path', '/products'];
+  tabsRoutes = ['/basic', '/gallery', '/parallax', '/timeline', '/draggable', '/motion-path', '/products', '/effects'];
 
   ngAfterViewInit(): void {
     gsap.registerPlugin(ScrollTrigger);
