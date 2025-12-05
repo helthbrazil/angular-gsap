@@ -43,3 +43,9 @@ Generate components, services, directives and more:
 
 To learn more about Angular CLI, visit the official documentation:\
 https://angular.io/cli
+
+## Deploy
+
+ng build --configuration production
+
+ng deploy --base-href=/angular-gsap/
