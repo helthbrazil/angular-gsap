@@ -1,0 +1,20 @@
+<section class="selector-section">
+    <div class="selector-header">
+        <h2 class="selector-title">Escape in Style</h2>
+        <p class="selector-subtitle">Discover luxurious camping experiences in nature's most breathtaking spots.</p>
+    </div>
+
+    <div class="options-container" *ngIf="showOptions">
+        <div *ngFor="let option of options; let i = index" class="option-card" [class.active]="activeIndex === i"
+            [style.background-image]="'url(' + option.image + ')'" (click)="selectOption(i)">
+            <div class="option-shadow"></div>
+            <div class="option-label">
+                <div class="option-icon">{{ option.icon }}</div>
+                <div class="option-info">
+                    <div class="option-title">{{ option.title }}</div>
+                    <div class="option-description">{{ option.description }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

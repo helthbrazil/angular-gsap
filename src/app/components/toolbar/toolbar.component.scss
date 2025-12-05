@@ -1,23 +1,23 @@
 @use "@angular/material" as mat;
 
 :host {
-  --toolbar-bg: rgba(255, 255, 255, 0.15);
-  --toolbar-border: rgba(255, 255, 255, 0.25);
-  --toolbar-text: #ffffff;
-  --toolbar-hover: rgba(255, 255, 255, 0.3);
-  --toolbar-toggle-bg: rgba(255, 255, 255, 0.2);
-  --toolbar-toggle-border: rgba(255, 255, 255, 0.3);
-  --toolbar-toggle-hover: rgba(255, 255, 255, 0.3);
-}
-
-.theme-dark {
-  --toolbar-bg: rgba(32, 33, 36, 0.5);
+  --toolbar-bg: transparent;
   --toolbar-border: rgba(255, 255, 255, 0.1);
   --toolbar-text: #ffffff;
   --toolbar-hover: rgba(255, 255, 255, 0.1);
-  --toolbar-toggle-bg: rgba(32, 33, 36, 0.4);
+  --toolbar-toggle-bg: rgba(255, 255, 255, 0.1);
+  --toolbar-toggle-border: rgba(255, 255, 255, 0.2);
+  --toolbar-toggle-hover: rgba(255, 255, 255, 0.2);
+}
+
+.theme-dark {
+  --toolbar-bg: transparent;
+  --toolbar-border: rgba(255, 255, 255, 0.05);
+  --toolbar-text: #ffffff;
+  --toolbar-hover: rgba(255, 255, 255, 0.05);
+  --toolbar-toggle-bg: transparent;
   --toolbar-toggle-border: rgba(255, 255, 255, 0.1);
-  --toolbar-toggle-hover: rgba(32, 33, 36, 0.5);
+  --toolbar-toggle-hover: rgba(255, 255, 255, 0.1);
 }
 
 .toolbar {

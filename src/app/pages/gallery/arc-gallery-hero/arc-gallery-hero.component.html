@@ -1,0 +1,31 @@
+<section class="arc-hero">
+    <!-- Background ring container -->
+    <div class="arc-bg-container" [style.height.px]="dimensions.radius * 1.2">
+        <div class="arc-pivot">
+            <div *ngFor="let img of images; let i = index" class="arc-image-wrapper"
+                [style.width.px]="dimensions.cardSize" [style.height.px]="dimensions.cardSize"
+                [style.left]="'calc(50% + ' + (imagePositions[i]?.x || 0) + 'px)'"
+                [style.bottom.px]="imagePositions[i]?.y || 0" [style.animation-delay.ms]="imagePositions[i]?.delay || 0"
+                [style.z-index]="imagePositions[i]?.zIndex || 0">
+                <div class="arc-image-inner"
+                    [style.transform]="'rotate(' + ((imagePositions[i]?.angle || 0) / 4) + 'deg)'">
+                    <img [src]="img" [alt]="'Memory ' + (i + 1)" draggable="false">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content below arc -->
+    <div class="hero-content-wrapper">
+        <div class="hero-content-inner">
+            <h1 class="hero-title">Rediscover Your Memories with AI</h1>
+            <p class="hero-description">
+                Our intelligent platform finds, organizes, and brings your most cherished moments back to life.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn-primary">Explore Your Past</button>
+                <button class="btn-secondary">How It Works</button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -10,7 +10,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
-import { Image } from 'src/app/pages/gallery/gallery/gallery.component';
+
+interface Image {
+  url: string | undefined;
+}
 
 @Component({
   selector: 'app-preview',
@@ -20,13 +23,12 @@ import { Image } from 'src/app/pages/gallery/gallery/gallery.component';
   styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent
-  implements OnInit, OnDestroy, OnChanges, AfterViewInit
-{
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Input() image!: Image;
 
   private observer!: MutationObserver;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) { }
 
   ngOnInit(): void {
     // Observa quando o IMG nasce no DOM
@@ -43,7 +45,7 @@ export class PreviewComponent
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   ngOnChanges(): void {
     if (this.image?.url) {
